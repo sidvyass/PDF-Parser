@@ -1,6 +1,6 @@
 import pyodbc
 
-def upload_data_to_table(data):
+def upload_data_to_table(data: dict):
     # TODO : Live server - comment out when code works
     # connection_string = "DRIVER={SQL Server};SERVER=ETZ-SQL;DATABASE=ETEZAZIMIETrakLive;Trusted_Connection=yes;"
     connection_string = "DRIVER={SQL Server};SERVER=ETZ-SQL;DATABASE=Sandbox;Trusted_Connection=yes;"
