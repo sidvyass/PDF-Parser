@@ -67,9 +67,7 @@ def useful_text_extraction(text: str) -> dict:
             label, value = line.split(':', 1)
             label = label.strip()
             value = value.strip()
-            print(label, value, sep=" --- ")  # TODO: testing remove
-            print("*"*10)
+            print("label: " ,label, " : Value - ", value)  # testing
             extracted_data[label] = value
 
     return extracted_data
-

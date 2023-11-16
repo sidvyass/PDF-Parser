@@ -10,4 +10,3 @@ FILEPATH = r"Y:\Estimating\Non-restricted\SPIRIT\RFE 141776P\ENGINEERING\313W315
 if __name__ == "__main__":
     txt = pdf_parse(FILEPATH)
     final_data = useful_text_extraction(txt)
-    print(final_data)
