@@ -3,3 +3,8 @@ __pycache__
 DocParVenv
 pra.cpp
 pra.h
+parseTesting.py
+spacy_testing.py
+document.txt
+DAILY_LOG.MD
+testing_pdfs
