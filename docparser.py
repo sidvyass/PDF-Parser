@@ -7,7 +7,7 @@ with open("document.txt", "r") as doc:
     data_list = [line for line in doc.readlines()]
 
 
-final_dict = {}
+final_list = []
 FILEPATH = r"Y:\Estimating\Non-restricted\SPIRIT\RFE 141776P\ENGINEERING\313W3153-7.pdf"
 
 
@@ -23,18 +23,13 @@ def boeing_pdf_parser(filename):  #TODO: args taken from the terminal
 def get_headers():
     """Does not return anything, just added headers on to the final dict. Uses string methods"""
     for line in data_list:
+        line.strip()
         if line.startswith("PARTS LIST"):  # this can be done only once using regex matching
-                final_dict["headers"] = line.split()[2:].pop(2)
+                final_list.append([line.split()[2:].pop(2)])
                 logging.info("Added headers")
                 break
         else:
             logging.debug("No headers found")
-
-
-def parse_textfile():  # filename currently hard coded
-    """Parses file into a final dictionary that can be searched through"""
-    pass
-
 
 
 # identify the REQD IDENTIFYING NUMBER line and then use the function that comes after this
@@ -51,12 +46,11 @@ def pl_data_struct():
             data = regex_matching.split_two_or_more_whitespace(line)
             parts_dict["Identifying Number"] = data[1]
             parts_dict["Description"] = data[2]
-            value = "   ".join(data[3:]) + "\n"
+            value = "   ".join(data[3:]) + "\n"  # to ensure correct formatting
         else:
             value += line
         
         parts_dict["Description"] = value
-    print(f"THE KEY IS : {parts_dict['Identifying Number']} ")
-    print("THE VALUE IS : ", sep="")
-    print(parts_dict["Description"])
-
+    # print(f"THE KEY IS : {parts_dict['Identifying Number']} ")
+    # print("THE VALUE IS : ", sep="")
+    # print(parts_dict["Description"])
