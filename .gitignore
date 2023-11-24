@@ -8,3 +8,4 @@ spacy_testing.py
 document.txt
 DAILY_LOG.MD
 testing_pdfs
+*.txt

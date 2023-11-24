@@ -1,5 +1,8 @@
-import fitz, pathlib, sys, logging, re
+import fitz, pathlib, logging
 import regex_matching
+
+#TODO : add flag notes func - map to the part number
+#TODO : map the opp vars
 
 logging.basicConfig(level=logging.INFO)
 
@@ -32,25 +35,53 @@ def get_headers():
             logging.debug("No headers found")
 
 
-# identify the REQD IDENTIFYING NUMBER line and then use the function that comes after this
-def pl_data_struct():
+# WE DONT NEED THIS AS OF NOW
+
+
+def pl_data_struct() -> dict:
+    """Organises the data into a dict - Key is the -1 numbers and value is whatever comes after it"""
     value = ""
-    parts_dict = {
-        "Reqd": "-",  # only for this pdf
-        "Identifying Number": None, 
-        "Description": None,
-    }
+    parts_dict = {}
     # index hard coded for parsing purposes
-    for idx, line in enumerate(data_list[77:88]):  # code to identify the "Assembly list" goes here
-        if idx==0:
-            data = regex_matching.split_two_or_more_whitespace(line)
-            parts_dict["Identifying Number"] = data[1]
-            parts_dict["Description"] = data[2]
-            value = "   ".join(data[3:]) + "\n"  # to ensure correct formatting
-        else:
-            value += line
-        
-        parts_dict["Description"] = value
-    # print(f"THE KEY IS : {parts_dict['Identifying Number']} ")
-    # print("THE VALUE IS : ", sep="")
-    # print(parts_dict["Description"])
+    with open("parsed_data.txt", "r") as file:
+        lines = file.readlines()
+        for line in lines:  # code to identify the "Assembly list" goes here
+            try: 
+                if line.strip().startswith("-"):
+                    dict.clear(parts_dict)
+                    value = ""
+                    data = regex_matching.split_two_or_more_whitespace(line)
+                    # print(data)
+                    # print(data[1], data[2])
+                    parts_dict["Identifying Number"] = data[1]
+                    parts_dict["Description"] = data[2]
+                    value = "   ".join(data[3:]) + "\n"  # to ensure correct formatting
+                else:
+                    value += line
+                    parts_dict["Description"] = value
+                    print(parts_dict)
+            except IndexError:
+                continue
+
+
+if __name__ == "__main__":
+    # needs to make sure that the parts that are related go together
+    # the doc for finishes does not change - parse it into the django container
+
+#   -      -1                     SKATE ANGLE-FWD      - OP   -2 OPPOSITE -1.                                                    A
+#                                                         MD   ZONE 1A8       PT MK M
+#                                                              FIN F-21.18.
+#                                                              STOCK 4.2 X 4.6 X 70.3
+#                                                              2219-T851 PLATE PER QQ-A-250/30.  ULTRASONIC INSPECT
+#                                                              PER BAC 5439, CLASS A.
+#                                                         AV   ADVANCE ORDER REQUIRED CONTACT MATL - D. KRENKE
+#                                                              529-6735, A. BURKLE 529-6732
+#                                                         DP   DRAWING PICTURE SHEET 1.
+#                                                         EA   EAMR NUMBER 313W3153-1 PROC CODE - W3002 END ROUTE -
+#                                                               LT, 773/IN CDS PAGE - 27, LINE - G DATE DUE ON DOCK
+#                                                              - WORKING SIZE INCLUDING MFG EXCESS - 6.0 X 8.0 X
+#                                                              75.0
+#                                                         GA   PENETRANT INSPECT PER BAC 5423.
+#    -      -10                    SKATE ANGLE-AFT UPR  - OP   -10 OPPOSITE -9.                  
+
+    pl_data_struct()
