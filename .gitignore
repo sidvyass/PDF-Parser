@@ -1,0 +1,7 @@
+testfile.txt
+data_dict.py
+*.pdf
+Final.txt
+main.py
+**/__pycache__/
+connection_string.py
