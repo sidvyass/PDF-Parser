@@ -1,0 +1,2 @@
+# this contained sensitive information. There are no strings in this file as they are Etezazi Industries specific. To avoid errors this file is still kept. 
+# Any connection string can be added here to initialize the sql_insert class. 

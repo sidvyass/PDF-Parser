@@ -2,6 +2,8 @@
 
 This PDF parser was developed for Etezazi Industries to parse technical airplane part pdfs and extrat the information related to outside processing. The parser first converts the pdf file into text, while still keeping relatively the same format and then data cleaning methods (w\ Regex and Fuzzy) are applied to the .txt files.
 
+There is a separate parser in the `parse_certs\` folder that parses standardized documents from suppliers and uploads them on to the Etezazi CRM platform via SQL. This parser has no use cases as they are only run once and are very specific to the document being parsed. 
+
 ## How to use
 
 The heart of this project is in docparser.py. This docparser's function `boeing_pdf_converter()` can be used by specifying input and output file paths, the function will return a .txt file that keeps the same format as the pdf. This is very important as most regular expressions would not work if the format was changed. 
